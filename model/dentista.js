@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require("../db/config");
 
-const Paciente = db.define('Paciente', {
+const Dentista = db.define('Dentista', {
     // Definición de las propiedades del modelo User
     id: {
         type: DataTypes.UUID(50),
@@ -68,10 +68,24 @@ const Paciente = db.define('Paciente', {
         
         
     },
+
     activo: {
         type: DataTypes.BOOLEAN(3),
         defaultValue: true,
     },
+    telefono: {
+        type: DataTypes.STRING(70),
+        
+    },
+    celular: {
+        type: DataTypes.STRING(70),
+        
+    },
+    especialidad: {
+        type: DataTypes.STRING(70),
+        
+    },
+   
    
     nombreCompleto: {
         type: DataTypes.VIRTUAL,
@@ -82,4 +96,4 @@ const Paciente = db.define('Paciente', {
 
 });
 
-module.exports = Usuario;
+module.exports = Dentista;

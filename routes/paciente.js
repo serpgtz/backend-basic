@@ -1,11 +1,11 @@
 const { Router, response } = require("express")
 
-const { getUsers } = require("../controllers/user")
+const { getPacientes } = require("../controllers/paciente")
 
 
 const router = Router();
 
-router.get('/',getUsers) 
+router.get('/',getPacientes) 
     
   
 

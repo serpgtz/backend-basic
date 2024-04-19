@@ -1,7 +1,16 @@
 require("dotenv").config()
 db = require("./db/config")
 
-const Server = require("./models/server")
+const Server = require("./model/server")
+
+const Paciente = require("./model/paciente")
+const Dentista = require("./model/dentista")
+const Cita = require("./model/cita")
+const Historial_clinico = require("./model/historial_clinico")
+const Metodo_pago = require("./model/metodo_pago")
+const Receta = require("./model/receta")
+const Transaccion = require("./model/transaccion")
+
 
 
 
@@ -26,7 +35,7 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        await db.sync({alter:false,logging: console.log})
+        await db.sync({force:false,logging: console.log})
       } catch (error) {
         console.error('A ocurrido un Error Durante la Ejecucion', error);
       }
