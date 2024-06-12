@@ -1,6 +1,8 @@
 require("dotenv").config()
 db = require("./db/config")
 
+const associations = require('./model/asociaciones');
+
 const Server = require("./model/server")
 
 const Paciente = require("./model/paciente")
@@ -35,7 +37,8 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        await db.sync({force:false,logging: console.log})
+        await db.sync({alter:false,logging: console.log})
+     
       } catch (error) {
         console.error('A ocurrido un Error Durante la Ejecucion', error);
       }

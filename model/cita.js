@@ -16,7 +16,8 @@ const Cita = db.define('Cita', {
     },
     estado: {
         type: DataTypes.ENUM('abierta', 'atendida', 'cancelada'),
-        allowNull: false,
+        defaultValue:"abierta",
+        
     },
 });
 

@@ -11,7 +11,12 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || 3000;
 
-        this.pacientesPath = "/api/pacientes"
+        this.path = {
+            paciente:"/api/pacientes",
+            cita: "/api/cita"
+        }
+
+        
 
 
         //Middlewares
@@ -33,7 +38,8 @@ class Server {
     }
 
     routes(){
-       this.app.use(this.pacientesPath, require("../routes/paciente"));
+       this.app.use(this.path.paciente, require("../routes/paciente"));
+       this.app.use(this.path.cita, require("../routes/cita"));
               
     }
 

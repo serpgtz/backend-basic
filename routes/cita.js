@@ -1,30 +1,33 @@
 const { Router, response } = require("express")
 const {validatorHendler} = require("../middleware/validator.handler")
-const { schemaPacienteCreate, validarIdPacienteSchema } = require("../schema/schemaPaciente.js")
+const {  schemaCitaCreate, validarIdCitaSchema, } = require("../schema/schemaCita.js")
+const {  validarIdPacienteSchema } = require("../schema/schemaPaciente.js")
 const { handleError } = require("../middleware/manejar.error.js")
 const { check } = require("express-validator");
-const { esRoleValido, existeEmail,existeUsuarioPorId,  } = require("../helper/db-validator.js")
+// const { esRoleValido, existeEmail,existeUsuarioPorId,  } = require("../helper/db-validator.js")
 
-const { obtenerPacientes, createPaciente, obtenerPacientesPorId, eliminarPacientesPorId } = require("../controllers/paciente")
+const { createCita, obtenerCitas, obtenerCitaPorId } = require("../controllers/cita.js")
 
 
 const router = Router();
 
 router.get('/',
-[ obtenerPacientes,
+[ 
+  obtenerCitas,
   handleError
 ]) 
 
-router.post("/",[
-  validatorHendler(schemaPacienteCreate,"body"),
-  check("correo").custom(existeEmail),
-  createPaciente,
+router.post("/:pacienteId",[
+  validatorHendler(schemaCitaCreate,"body"),
+  validatorHendler(validarIdPacienteSchema,"params"),
+//   check("correo").custom(existeEmail),
+  createCita,
   handleError
 ])
 
-router.get('/:pacienteId',[
-  validatorHendler(validarIdPacienteSchema,"params"),
-  obtenerPacientesPorId,
+router.get('/:citaId',[
+  validatorHendler(validarIdCitaSchema,"params"),
+  obtenerCitaPorId,
   handleError
 ]) 
 
@@ -54,13 +57,13 @@ router.get('/:pacienteId',[
   
 
 
-router.put('/:idPaciente',[
+// router.put('/:idPaciente',[
 
-validatorHendler(validarIdPacienteSchema,"params"),
-eliminarPacientesPorId,
-handleError
+// validatorHendler(validarIdPacienteSchema,"params"),
+// eliminarPacientesPorId,
+// handleError
 
-]) 
+// ]) 
 
 // router.put('/eliminar/:idDescuento',[
 // validarJWT,

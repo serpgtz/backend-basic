@@ -51,6 +51,7 @@ const Paciente = db.define('Paciente', {
     correo: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: true
        
     },
     alta: {
