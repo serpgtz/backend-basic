@@ -15,6 +15,13 @@ const schemaCitaCreate = Joi.object({
     
 })
 
+const schemaCitaActualizacion = Joi.object({
+   
+    fecha:fecha,
+    hora: hora
+    
+})
+
 // const validarIdCitaSchema = Joi.object({
 //     pacienteId:pacienteId.required()
 // })
@@ -35,6 +42,7 @@ const validarIdCitaSchema = Joi.object({
 
 module.exports = {
     schemaCitaCreate,
-    validarIdCitaSchema
+    validarIdCitaSchema,
+    schemaCitaActualizacion
     // getProductSchema
 }

@@ -1,12 +1,13 @@
 const { Router, response } = require("express")
 const {validatorHendler} = require("../middleware/validator.handler")
-const {  schemaCitaCreate, validarIdCitaSchema, } = require("../schema/schemaCita.js")
-const {  validarIdPacienteSchema } = require("../schema/schemaPaciente.js")
+const {  schemaCitaCreate, validarIdCitaSchema, schemaCitaActualizacion } = require("../schema/schemaCita.js")
+const { validarIdPacienteSchema } = require("../schema/schemaPaciente.js")
+
 const { handleError } = require("../middleware/manejar.error.js")
 const { check } = require("express-validator");
 // const { esRoleValido, existeEmail,existeUsuarioPorId,  } = require("../helper/db-validator.js")
 
-const { createCita, obtenerCitas, obtenerCitaPorId } = require("../controllers/cita.js")
+const { createCita, obtenerCitas, obtenerCitaPorId, cancelarCita, actualizarCita } = require("../controllers/cita.js")
 
 
 const router = Router();
@@ -48,22 +49,22 @@ router.get('/:citaId',[
 // ])
 
 
-// router.put("/vincular",[
+router.put("/cancelar/:citaId",[
 // validarJWT,
-// validatorHendler(VincularDescuentoSchema,"body"),
-// VincularDescuento,
-// handleError
-// ])
+validatorHendler(validarIdCitaSchema,"params"),
+cancelarCita,
+handleError
+])
   
 
 
-// router.put('/:idPaciente',[
+router.put('/:citaId',[
+validatorHendler(validarIdCitaSchema,"params"),
+validatorHendler(schemaCitaActualizacion,"body"),
+actualizarCita,
+handleError
 
-// validatorHendler(validarIdPacienteSchema,"params"),
-// eliminarPacientesPorId,
-// handleError
-
-// ]) 
+]) 
 
 // router.put('/eliminar/:idDescuento',[
 // validarJWT,

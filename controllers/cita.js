@@ -36,7 +36,42 @@ const createCita = async (req, res = response, next) => {
  
      return res.status(200).json({
          status:0,
-         msg:"cita creada con exito"})
+         msg:"cita actualizada con exito"})
+  
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+  
+   
+}
+
+const actualizarCita = async (req, res = response, next) => {
+
+
+    try {
+        const {fecha, hora } = req.body
+
+        const {citaId} = req.params
+
+
+        let cita = await Cita.findByPk(citaId)
+
+
+        if(!cita) throw Boom.notFound("Cita no Encontrado")
+
+            
+        cita.fecha = fecha
+        cita.hora = hora
+
+        await cita.save()
+
+
+
+
+   
+ 
+     return res.status(200).json({msg:"cita Actualizada con exito",cita})
   
     } catch (error) {
         console.log(error)
@@ -94,26 +129,30 @@ const obtenerCitaPorId = async (req, res = response, next) => {
     
     }
 
-    const eliminarPacientesPorId = async (req, res = response, next) => {
+    const cancelarCita = async (req, res = response, next) => {
 
         try {
-            const { idPaciente } = req.params
-            let paciente = await Paciente.findByPk(idPaciente)
+            const { citaId } = req.params
+            let cita = await Cita.findByPk(citaId)
     
     
-            if(!paciente){
-                throw Boom.notFound("Paciente no Encontrado")
+            if(!cita){
+                throw Boom.notFound("Cita no Encontrada")
+            }
+            if(cita.estado!=="abierta"){
+                throw Boom.notFound("Solo se pueden cancelar citas que esten en estado de Abiertas")
             }
 
-            paciente.set({alta:false})
-            await paciente.save()
+           
+
+            cita.set({estado:"cancelada"})
+            await cita.save()
 
 
             
         
             return res.status(200).json({
-                status:0,
-                data:paciente}) 
+                data:cita}) 
         
         } catch (error) {
             console.log(error)
@@ -131,6 +170,8 @@ const obtenerCitaPorId = async (req, res = response, next) => {
 module.exports = {
     createCita,
     obtenerCitas,
-    obtenerCitaPorId
+    obtenerCitaPorId,
+    cancelarCita,
+    actualizarCita
     
 }

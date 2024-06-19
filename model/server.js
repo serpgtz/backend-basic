@@ -13,7 +13,8 @@ class Server {
 
         this.path = {
             paciente:"/api/pacientes",
-            cita: "/api/cita"
+            cita: "/api/cita",
+            dentista:"/api/dentista"
         }
 
         
@@ -40,6 +41,7 @@ class Server {
     routes(){
        this.app.use(this.path.paciente, require("../routes/paciente"));
        this.app.use(this.path.cita, require("../routes/cita"));
+       this.app.use(this.path.dentista, require("../routes/dentista"));
               
     }
 
