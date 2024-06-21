@@ -18,14 +18,15 @@ const createPaciente = async (req, res = response, next) => {
             numero_casa,
             colonia,
             telefono,
-            celular} = req.body
+            celular,
+            dentistaId} = req.body
 
 
         const paciente = await Paciente.findOne({ where: { correo } });
         console.log("existeEmail", paciente);
 
         if(paciente){
-            throw Boom.notFound("ya existe registrado correo electronico")
+            throw Boom.notFound("ya existe Paciente registrado")
         } 
  
      const nuevo_paciente = {
@@ -39,15 +40,19 @@ const createPaciente = async (req, res = response, next) => {
          colonia,
          telefono,
          celular
+         
+
      }
  
      const pacienteCreado = await Paciente.create(nuevo_paciente)
+
+   
+
+     await pacienteCreado.addDentista(dentistaId);
  
-     console.log(pacienteCreado)
+     
  
-     return res.status(200).json({
-         status:0,
-         msg:"Paciente creado con exito!!"})
+     return res.status(200).json({msg:"Paciente creado con exito!!"})
   
     } catch (error) {
         console.log(error)

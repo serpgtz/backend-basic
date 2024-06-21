@@ -1,19 +1,19 @@
 const { Router, response } = require("express")
 const {validatorHendler} = require("../middleware/validator.handler")
-const { schemaCrearDentista,  } = require("../schema/schemaDentista.js")
+const { schemaCrearDentista,  validarIdDentistaSchema} = require("../schema/schemaDentista.js")
 const { handleError } = require("../middleware/manejar.error.js")
 const { check } = require("express-validator");
 const { esRoleValido, existeEmail,existeUsuarioPorId,  } = require("../helper/db-validator.js")
 
-const { createDentista } = require("../controllers/dentista.js")
+const { createDentista, obtenerDentista, obtenerDentistaPorId, eliminarDentistaPorId } = require("../controllers/dentista.js")
 
 
 const router = Router();
 
-// router.get('/',
-// [ obtenerPacientes,
-//   handleError
-// ]) 
+router.get('/',
+[ obtenerDentista,
+  handleError
+]) 
 
 router.post("/",[
   validatorHendler(schemaCrearDentista,"body"),
@@ -22,11 +22,11 @@ router.post("/",[
   handleError
 ])
 
-// router.get('/:pacienteId',[
-//   validatorHendler(validarIdPacienteSchema,"params"),
-//   obtenerPacientesPorId,
-//   handleError
-// ]) 
+router.get('/:dentistaId',[
+  validatorHendler(validarIdDentistaSchema,"params"),
+  obtenerDentistaPorId,
+  handleError
+]) 
 
 // router.get("/descuentoProducto",[
 //   descuentosPorCodigo,
@@ -54,13 +54,13 @@ router.post("/",[
   
 
 
-// router.put('/:idPaciente',[
+router.put('/eliminar/:dentistaId',[
 
-// validatorHendler(validarIdPacienteSchema,"params"),
-// eliminarPacientesPorId,
-// handleError
+validatorHendler(validarIdDentistaSchema,"params"),
+eliminarDentistaPorId,
+handleError
 
-// ]) 
+]) 
 
 // router.put('/eliminar/:idDescuento',[
 // validarJWT,

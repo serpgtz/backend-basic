@@ -1,7 +1,8 @@
 
 
 const Paciente = require("./paciente");
-const Cita = require("./cita")
+const Cita = require("./cita");
+const Dentista = require("./dentista");
 
 
 
@@ -13,9 +14,18 @@ const Cita = require("./cita")
 Paciente.hasMany(Cita, { foreignKey: 'pacienteId' });
 Cita.belongsTo(Paciente, { foreignKey: 'pacienteId' });
 
+//----------------------------n a n ------------------------------------------
+Dentista.belongsToMany(Cita, {through: "Dentista_Cita"});
+Cita.belongsToMany(Dentista, {through: "Dentista_Cita"});
+
+Dentista.belongsToMany(Paciente, {through: "Dentista_Paciente"});
+Paciente.belongsToMany(Dentista, {through: "Dentista_Paciente"});
+
+
 
 module.exports = {
     Paciente,
-    Cita
+    Cita,
+    Dentista
 }
 

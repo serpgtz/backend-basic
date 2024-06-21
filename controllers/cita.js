@@ -3,7 +3,8 @@ const { response } = require("express")
 const Paciente = require("../model/paciente")
 const Boom = require('@hapi/boom');
 const Cita = require("../model/cita");
-const { Op } = require("sequelize")
+const { Op } = require("sequelize");
+const Dentista = require("../model/dentista");
 
 
 const createCita = async (req, res = response, next) => {
@@ -14,6 +15,7 @@ const createCita = async (req, res = response, next) => {
             
             fecha,
             hora,
+            dentistaId
             
            } = req.body
 
@@ -31,6 +33,8 @@ const createCita = async (req, res = response, next) => {
          }
  
      const citaNueva = await Cita.create(cita_nueva)
+
+     await citaNueva.addDentista(dentistaId);
  
    
  
@@ -86,13 +90,20 @@ const obtenerCitas = async (req, res = response, next) => {
 
 try {
 
-    let citas = await Cita.findAll()
+    let citas = await Cita.findAll({
+        include:[
+            {
+                model:Paciente
+            },
+            {
+                model:Dentista
+            }
+        ]
+    })
 
    
 
-    return res.status(200).json({
-        status:0,
-        data:citas}) 
+    return res.status(200).json({ data:citas}) 
 
 } catch (error) {
     console.log(error)

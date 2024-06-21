@@ -13,6 +13,7 @@ const celular = Joi.string().alphanum().min(6).max(30)
 
 
 const pacienteId = Joi.string().guid({ version: 'uuidv4' })
+const dentistaId = Joi.string().guid({ version: 'uuidv4' })
 
 
 const schemaPacienteCreate = Joi.object({
@@ -26,7 +27,8 @@ const schemaPacienteCreate = Joi.object({
     numero_casa : numero_casa,
     colonia :colonia.required(),
     telefono: telefono,
-    celular : celular.required()
+    celular : celular.required(),
+    dentistaId: dentistaId.required()
 })
 
 const validarIdPacienteSchema = Joi.object({

@@ -6,12 +6,14 @@ const hora = Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/)  // Valida que 
 
 const pacienteId = Joi.string().guid({ version: 'uuidv4' })
 const citaId = Joi.string().guid({ version: 'uuidv4' })
+const dentistaId = Joi.string().guid({ version: 'uuidv4' })
 
 
 const schemaCitaCreate = Joi.object({
    
     fecha:fecha.required(),
-    hora: hora.required()
+    hora: hora.required(),
+    dentistaId:dentistaId.required()
     
 })
 

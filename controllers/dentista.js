@@ -4,6 +4,7 @@ const Dentista = require("../model/dentista")
 const Boom = require('@hapi/boom');
 const Cita = require("../model/cita");
 const bcryptjs = require("bcryptjs");
+const Paciente = require("../model/paciente");
 
 
 const createDentista = async (req, res = response, next) => {
@@ -67,23 +68,13 @@ const createDentista = async (req, res = response, next) => {
 }
 
 
-const obtenerPacientes = async (req, res = response, next) => {
+const obtenerDentista = async (req, res = response, next) => {
 
 try {
 
-    let pacientes = await Paciente.findAll({
-        where:{
-            
-            alta:true
-        },
-        include:{
-            model:Cita
-        }
-    })
+    let dentistas = await Dentista.findAll()
 
-    return res.status(200).json({
-        status:0,
-        data:pacientes}) 
+    return res.status(200).json({data:dentistas}) 
 
 } catch (error) {
     console.log(error)
@@ -95,20 +86,28 @@ try {
    
 }
 
-const obtenerPacientesPorId = async (req, res = response, next) => {
+const obtenerDentistaPorId = async (req, res = response, next) => {
 
     try {
-        const { pacienteId } = req.params
-        let paciente = await Paciente.findByPk(pacienteId)
+        const { dentistaId } = req.params
+        let dentista = await Dentista.findByPk(dentistaId,{
+            
+            include:[
+                {
+                    model:Paciente
+                },
+                {
+                    model:Cita
+                }
+            ]
+        })
 
 
-        if(!paciente){
+        if(!dentista){
             throw Boom.notFound("Paciente no Encontrado")
         }
     
-        return res.status(200).json({
-            status:0,
-            data:paciente}) 
+        return res.status(200).json({data:dentista}) 
     
     } catch (error) {
         console.log(error)
@@ -118,26 +117,25 @@ const obtenerPacientesPorId = async (req, res = response, next) => {
     
     }
 
-    const eliminarPacientesPorId = async (req, res = response, next) => {
+    const eliminarDentistaPorId = async (req, res = response, next) => {
 
         try {
-            const { idPaciente } = req.params
-            let paciente = await Paciente.findByPk(idPaciente)
+            const { dentistaId } = req.params
+            let dentista = await Dentista.findByPk(dentistaId)
     
     
-            if(!paciente){
+            if(!dentista){
                 throw Boom.notFound("Paciente no Encontrado")
             }
 
-            paciente.set({alta:false})
-            await paciente.save()
+            dentista.set({alta:false})
+            dentista.set({activo:false})
+            await dentista.save()
 
 
             
         
-            return res.status(200).json({
-                status:0,
-                data:paciente}) 
+            return res.status(200).json({data:dentista}) 
         
         } catch (error) {
             console.log(error)
@@ -154,5 +152,8 @@ const obtenerPacientesPorId = async (req, res = response, next) => {
 
 module.exports = {
     createDentista,
+    obtenerDentista,
+    obtenerDentistaPorId,
+    eliminarDentistaPorId
     
 }
