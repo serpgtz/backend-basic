@@ -31,6 +31,21 @@ const schemaPacienteCreate = Joi.object({
     dentistaId: dentistaId.required()
 })
 
+const schemaPacienteActualizacion = Joi.object({
+   
+    nombre,
+    segundoNombre: segundoNombre,
+    apellidoP,
+    apellidoM,
+    correo,
+    calle,
+    numero_casa,
+    colonia,
+    telefono,
+    celular,
+    
+})
+
 const validarIdPacienteSchema = Joi.object({
     pacienteId:pacienteId.required()
 })
@@ -47,6 +62,7 @@ const validarIdPacienteSchema = Joi.object({
 
 module.exports = {
     schemaPacienteCreate,
-    validarIdPacienteSchema
+    validarIdPacienteSchema,
+    schemaPacienteActualizacion
     // getProductSchema
 }

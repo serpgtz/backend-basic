@@ -1,11 +1,11 @@
 const { Router, response } = require("express")
 const {validatorHendler} = require("../middleware/validator.handler")
-const { schemaPacienteCreate, validarIdPacienteSchema } = require("../schema/schemaPaciente.js")
+const { schemaPacienteCreate, validarIdPacienteSchema, schemaPacienteActualizacion } = require("../schema/schemaPaciente.js")
 const { handleError } = require("../middleware/manejar.error.js")
 const { check } = require("express-validator");
 const { esRoleValido, existeEmail,existeUsuarioPorId,  } = require("../helper/db-validator.js")
 
-const { obtenerPacientes, createPaciente, obtenerPacientesPorId, eliminarPacientesPorId } = require("../controllers/paciente")
+const { obtenerPacientes, createPaciente, obtenerPacientesPorId, eliminarPacientesPorId, actualizarPaciente } = require("../controllers/paciente")
 
 
 const router = Router();
@@ -45,16 +45,16 @@ router.get('/:pacienteId',[
 // ])
 
 
-// router.put("/vincular",[
-// validarJWT,
-// validatorHendler(VincularDescuentoSchema,"body"),
-// VincularDescuento,
-// handleError
-// ])
+router.put("/actualizar/:pacienteId",[
+validatorHendler(validarIdPacienteSchema,"params"),
+validatorHendler(schemaPacienteActualizacion,"body"),
+actualizarPaciente,
+handleError
+])
   
 
 
-router.put('/:idPaciente',[
+router.put('/:pacienteId',[
 
 validatorHendler(validarIdPacienteSchema,"params"),
 eliminarPacientesPorId,

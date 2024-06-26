@@ -13,6 +13,9 @@ const Metodo_pago = require("./model/metodo_pago")
 const Receta = require("./model/receta")
 const Transaccion = require("./model/transaccion")
 const Factura = require("./model/factura")
+const Orden = require("./model/orden")
+const Procedimiento = require("./model/procedimientos")
+
 
 
 

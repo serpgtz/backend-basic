@@ -72,7 +72,9 @@ const obtenerDentista = async (req, res = response, next) => {
 
 try {
 
-    let dentistas = await Dentista.findAll()
+    let dentistas = await Dentista.findAll({
+        where:{alta:true}
+    })
 
     return res.status(200).json({data:dentistas}) 
 

@@ -3,6 +3,7 @@ const { response } = require("express")
 const Paciente = require("../model/paciente")
 const Boom = require('@hapi/boom');
 const Cita = require("../model/cita");
+const Dentista = require("../model/dentista");
 
 
 const createPaciente = async (req, res = response, next) => {
@@ -72,9 +73,18 @@ try {
             
             alta:true
         },
-        include:{
-            model:Cita
-        }
+        include:[
+            {
+                model:Cita
+            },
+            {
+                model:Dentista
+            },
+
+        ]
+           
+        
+
     })
 
     return res.status(200).json({
@@ -117,8 +127,8 @@ const obtenerPacientesPorId = async (req, res = response, next) => {
     const eliminarPacientesPorId = async (req, res = response, next) => {
 
         try {
-            const { idPaciente } = req.params
-            let paciente = await Paciente.findByPk(idPaciente)
+            const { pacienteId } = req.params
+            let paciente = await Paciente.findByPk(pacienteId)
     
     
             if(!paciente){
@@ -142,6 +152,60 @@ const obtenerPacientesPorId = async (req, res = response, next) => {
         }
         
         }
+
+        const actualizarPaciente = async (req, res = response, next) => {
+
+
+            try {
+                const {
+                    nombre,
+                    segundoNombre,
+                    apellidoP,
+                    apellidoM,
+                    correo,  
+                    calle,
+                    numero_casa,
+                    colonia,
+                    telefono,
+                    celular,
+                    } = req.body
+        
+                const {pacienteId} = req.params
+        
+        
+                let paciente = await Cita.findByPk(pacienteId)
+        
+        
+                if(!paciente) throw Boom.notFound("Paciente no Encontrado")
+        
+                    
+              let paciente_actualizacion = {
+                nombre,
+                segundoNombre,
+                apellidoP,
+                apellidoM,
+                correo,
+                calle,
+                numero_casa,
+                colonia,
+                telefono,celular
+              }
+
+              await Paciente.update(paciente_actualizacion)
+        
+        
+    
+         
+             return res.status(200).json({msg:"Paciente  Actualizada con exito"})
+          
+            } catch (error) {
+                console.log(error)
+                next(error)
+            }
+          
+           
+        }
+        
     
 
 
@@ -152,5 +216,6 @@ module.exports = {
     createPaciente,
     obtenerPacientes,
     obtenerPacientesPorId,
-    eliminarPacientesPorId
+    eliminarPacientesPorId,
+    actualizarPaciente
 }
