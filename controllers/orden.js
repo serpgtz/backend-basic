@@ -10,7 +10,7 @@ const sequelize = require("../config/sequelizer");
 
 const crearOrden = async (req, res = response, next) => {
     try {
-        let usuario = req.usuario;
+        // let usuario = req.usuario;
         const { DireccionEnvioId, productos } = req.body;
 
         let direccionEnvio = await Direccion_Envio.findByPk(DireccionEnvioId);
