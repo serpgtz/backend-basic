@@ -8,47 +8,32 @@ const Dentista = require("../model/dentista");
 
 
 const createCita = async (req, res = response, next) => {
-
-
     try {
-        const {
-            
+        const { fecha, hora, dentistaId } = req.body;
+        const { pacienteId } = req.params;
+
+        // Crear la nueva cita asociada al paciente y dentista
+        const cita_nueva = {
             fecha,
             hora,
-            dentistaId
-            
-           } = req.body
+            pacienteId,
+            dentistaId // Asignar directamente el dentistaId
+        };
 
-           const {pacienteId} = req.params
+        // Crear la cita en la base de datos
+        const citaNueva = await Cita.create(cita_nueva);
 
-           console.log(pacienteId)
-
-
-        
- 
-     const cita_nueva = {
-         fecha,
-         hora, 
-         pacienteId
-         }
- 
-     const citaNueva = await Cita.create(cita_nueva)
-
-     await citaNueva.addDentista(dentistaId);
- 
-   
- 
-     return res.status(200).json({
-         status:0,
-         msg:"cita actualizada con exito"})
-  
+        return res.status(200).json({
+            status: 0,
+            msg: "Cita creada con éxito"
+        });
     } catch (error) {
-        console.log(error)
-        next(error)
+        console.log(error);
+        next(error);
     }
-  
-   
-}
+};
+
+
 
 const actualizarCita = async (req, res = response, next) => {
 
