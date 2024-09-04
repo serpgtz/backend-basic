@@ -5,6 +5,7 @@ const Cita = require("./cita");
 const Dentista = require("./dentista");
 const Metodo_pago = require("./metodo_pago");
 const Orden = require("./orden");
+const Factura = require("./factura")
 
 
 
@@ -24,7 +25,8 @@ Orden.belongsTo(Metodo_pago)
 //-------------------------1-N------------------------------------
 
 
-
+Cita.hasMany(Factura, { foreignKey: 'citaId' });
+Factura.belongsTo(Cita, { foreignKey: 'citaId' });
 
 
 // Pais.hasMany(Estado)

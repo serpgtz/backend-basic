@@ -41,7 +41,7 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        // await db.models.Cita.sync({alter:true,logging: console.log})
+        await db.models.Factura.sync({alter:true,logging: console.log})
      
       } catch (error) {
         console.error('A ocurrido un Error Durante la Ejecucion', error);
