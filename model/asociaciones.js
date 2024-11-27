@@ -5,7 +5,8 @@ const Cita = require("./cita");
 const Dentista = require("./dentista");
 const Metodo_pago = require("./metodo_pago");
 const Orden = require("./orden");
-const Factura = require("./factura")
+const Factura = require("./factura");
+const Procedimiento = require("./procedimientos");
 
 
 
@@ -27,6 +28,11 @@ Orden.belongsTo(Metodo_pago)
 
 Cita.hasMany(Factura, { foreignKey: 'citaId' });
 Factura.belongsTo(Cita, { foreignKey: 'citaId' });
+
+
+Procedimiento.hasMany(Orden, { foreignKey: 'procedimientoId' });
+Orden.belongsTo(Procedimiento, { foreignKey: 'procedimientoId' });
+
 
 
 // Pais.hasMany(Estado)
@@ -65,6 +71,7 @@ module.exports = {
     Dentista,
     Orden,
     Metodo_pago,
+    Procedimiento
   
 }
 
