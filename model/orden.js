@@ -9,8 +9,8 @@ const Orden = db.define('Orden', {
         defaultValue: DataTypes.UUIDV4,
     },
     estado: {
-        type: DataTypes.ENUM('abierta', 'pagada',"completada","cancelada"),
-        allowNull: false,
+        type: DataTypes.ENUM('abierta', 'pagada',"pendiente","cancelada"),
+        defaultValue:"abierta",
     },
     subtotal:{
         type: DataTypes.FLOAT,
@@ -50,10 +50,10 @@ const Orden = db.define('Orden', {
    }
 
 })
-Orden.beforeCreate((instancia) => {
-    const primerasCuatroLetras = instancia.usuarioNombre.substring(0, 4).toUpperCase();
-    const fechaCreacion = new Date().toISOString().substring(2, 19).replace(/[-:]/g, "");
-    instancia.nombreOrden = `${primerasCuatroLetras}${fechaCreacion}`;
-  });
+// Orden.beforeCreate((instancia) => {
+//     const primerasCuatroLetras = instancia.usuarioNombre.substring(0, 4).toUpperCase();
+//     const fechaCreacion = new Date().toISOString().substring(2, 19).replace(/[-:]/g, "");
+//     instancia.nombreOrden = `${primerasCuatroLetras}${fechaCreacion}`;
+//   });
 
 module.exports = Orden;

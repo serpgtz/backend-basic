@@ -15,6 +15,7 @@ const Transaccion = require("./model/transaccion")
 const Factura = require("./model/factura")
 const Orden = require("./model/orden")
 const Procedimiento = require("./model/procedimientos")
+const Procedimiento_Orden = require("./model/procedimiento_orden.js")
 
 
 
@@ -41,7 +42,9 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        // await db.models.Procedimiento.sync({alter:true,logging: console.log})
+        // await db.models.Procedimiento_Orden.sync({alter:true,logging: console.log})
+
+        console.log(db,"db")
      
       } catch (error) {
         console.error('A ocurrido un Error Durante la Ejecucion', error);

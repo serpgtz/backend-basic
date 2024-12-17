@@ -30,8 +30,8 @@ Cita.hasMany(Factura, { foreignKey: 'citaId' });
 Factura.belongsTo(Cita, { foreignKey: 'citaId' });
 
 
-Procedimiento.hasMany(Orden, { foreignKey: 'procedimientoId' });
-Orden.belongsTo(Procedimiento, { foreignKey: 'procedimientoId' });
+// Procedimiento.hasMany(Orden, { foreignKey: 'procedimientoId' });
+// Orden.belongsTo(Procedimiento, { foreignKey: 'procedimientoId' });
 
 
 
@@ -59,8 +59,10 @@ Orden.belongsTo(Cita, { foreignKey: 'CitaId' });
 
 
 
-// Orden.belongsToMany(Cita, { through: { model: Orden_Cita, unique: false, primaryKey: 'id' } });
-// Cita.belongsToMany(Orden, { through: { model: Orden_Cita, unique: false, primaryKey: 'id' } });
+Orden.belongsToMany(Procedimiento, { through:  "Procedimiento_Orden", unique: false, primaryKey: 'id'  });
+Procedimiento.belongsToMany(Orden, { through:  "Procedimiento_Orden", unique: false, primaryKey: 'id'  });
+
+
 
 
 

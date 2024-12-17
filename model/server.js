@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require("cors");
+
 require("dotenv").config();
 
 
@@ -16,7 +17,8 @@ class Server {
             cita: "/api/cita",
             dentista:"/api/dentista",
             procedimiento:"/api/procedimiento",
-            orden:"/api/orden"
+            orden:"/api/orden",
+            Metodo_pago:"/api/metodo-pago"
         }
 
         
@@ -46,6 +48,7 @@ class Server {
        this.app.use(this.path.dentista, require("../routes/dentista"));
        this.app.use(this.path.procedimiento, require("../routes/procedimiento"));
        this.app.use(this.path.orden, require("../routes/orden"));
+       this.app.use(this.path.Metodo_pago, require("../routes/metodo-pago"));
               
     }
 

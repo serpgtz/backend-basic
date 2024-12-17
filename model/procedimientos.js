@@ -20,6 +20,12 @@ const Procedimiento = db.define('Procedimiento', {
         type: DataTypes.FLOAT
 
     },
+
+    // cantidad: {
+    //     type: DataTypes.INTEGER,
+    //     defaultValue:1,
+
+    // },
  
    
     activo: {
