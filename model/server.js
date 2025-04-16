@@ -18,7 +18,8 @@ class Server {
             dentista:"/api/dentista",
             procedimiento:"/api/procedimiento",
             orden:"/api/orden",
-            Metodo_pago:"/api/metodo-pago"
+            Metodo_pago:"/api/metodo-pago",
+            contacto:"/api/contacto"
         }
 
         
@@ -49,6 +50,7 @@ class Server {
        this.app.use(this.path.procedimiento, require("../routes/procedimiento"));
        this.app.use(this.path.orden, require("../routes/orden"));
        this.app.use(this.path.Metodo_pago, require("../routes/metodo-pago"));
+       this.app.use(this.path.contacto, require("../routes/contacto"));
               
     }
 

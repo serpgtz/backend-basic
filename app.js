@@ -42,9 +42,9 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        // await db.models.Procedimiento_Orden.sync({alter:true,logging: console.log})
+        await db.sync()
 
-        console.log(db,"db")
+        // console.log(db,"db")
      
       } catch (error) {
         console.error('A ocurrido un Error Durante la Ejecucion', error);
