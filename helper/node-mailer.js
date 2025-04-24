@@ -16,8 +16,9 @@ const emailTransporter = nodemailer.createTransport({
 const mandarEmail = async (email, subject, html,attachments) => {
   try {
     let info = await emailTransporter.sendMail({
-      from: `Gc-Track ${USER_CORREO}`,
-      to: email,
+      from: `"Dental Diaz Conacto" <${USER_CORREO}>`,
+
+      to: "gct.sergio.partida@gmail.com",
       subject: subject,
       text: ' Store.Gc-track.com',
       dsn: {

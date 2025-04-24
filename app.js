@@ -42,7 +42,7 @@ const connectionDB = async() => {
     (async () => {
       try {
         await connectionDB();
-        await db.sync()
+            // await db.sync()
 
         // console.log(db,"db")
      
